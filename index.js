@@ -22,11 +22,15 @@ const sendTelegamMessage = info => {
 	}).write()
 
 	if(info.photos.length) {
-		info.photos.map(photo => {
-			fs.readFile(photo, (err, data) => {
-				bot.telegram.sendPhoto(chatId, {source: photo})
+		try{
+			info.photos.map(photo => {
+				fs.readFile(photo, (err, data) => {
+					bot.telegram.sendPhoto(chatId, {source: photo})
+				})
 			})
-		})
+		} catch(e) {
+			console.error(e)
+		}
 	}
 
 	const inlineMessageRatingKeyboard = Markup.inlineKeyboard([
@@ -37,9 +41,7 @@ const sendTelegamMessage = info => {
 		parse_mode: "HTML",
 		reply_markup: inlineMessageRatingKeyboard
 	})
-
 }
-
 
 
 const startWatching = () => {
@@ -51,7 +53,6 @@ const startWatching = () => {
 		watcher.on('add', (path)=> {
 			fs.readFile(path, {encoding: 'utf-8'}, (err, data) => {
 				const info = formatJson(data)
-
 				sendTelegamMessage(info)
 			})
 		})
