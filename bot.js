@@ -11,8 +11,8 @@ bot.action(/./g, (ctx) => {
 	const linkId = ctx.callbackQuery.data
 	if(isValid(linkId)){
 		const linkInfo = db.get('links').find({id: linkId}).value()
-
 		deleteLink(linkInfo.link)
+		ctx.editMessageText('Deleted')
 	}
 })
 

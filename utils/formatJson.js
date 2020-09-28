@@ -21,18 +21,15 @@ const dict = {
 }
 
 
-module.exports = (req, res, next) => {
-	try {
-		const info = JSON.parse(req.body.info)
-		const caLaOameni = {}
+module.exports = (jsonStr) => {
+	const info = JSON.parse(jsonStr)
+	const caLaOameni = {}
 
-		Object.keys(info).map(key => {
-			caLaOameni[dict[key]] = info[key]
-		})
+	Object.keys(info).map(key => {
+		caLaOameni[dict[key]] = info[key]
+	})
 
-		req.body.info = caLaOameni
-		next()
-	} catch(e) {
-		next(e)
-	}
+	return caLaOameni
 }
+
+
