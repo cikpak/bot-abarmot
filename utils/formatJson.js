@@ -22,14 +22,18 @@ const dict = {
 
 
 module.exports = (jsonStr) => {
-	const info = JSON.parse(jsonStr)
-	const caLaOameni = {}
+	if(jsonStr) {
 
-	Object.keys(info).map(key => {
-		caLaOameni[dict[key]] = info[key]
-	})
+		const info = JSON.parse(jsonStr)
+		const caLaOameni = {}
 
-	return caLaOameni
+		Object.keys(info).map(key => {
+			caLaOameni[dict[key]] = info[key]
+		})
+		return caLaOameni
+	}
+
+	return null
 }
 
 

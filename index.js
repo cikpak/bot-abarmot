@@ -12,17 +12,20 @@ const dir = process.env.DIR
 const formatHtmlMessage = require('./utils/formatMessage')
 const formatJson = require('./utils/formatJson')
 
-
 const sendTelegamMessage = info => {
 	const id = shortid.generate()
+	const {start, destination, searchUrl, postedDate} = info
 
 	db.get('links').push({
 		id,
-		link: info.searchUrl
+		searchUrl,
+		start,
+		destination,
+		postedDate
 	}).write()
 
 	if(info.photos.length) {
-		try{
+		try {
 			info.photos.map(photo => {
 				fs.readFile(photo, (err, data) => {
 					bot.telegram.sendPhoto(chatId, {source: photo})
@@ -43,17 +46,18 @@ const sendTelegamMessage = info => {
 	})
 }
 
-
 const startWatching = () => {
 	const watcher = chokidar.watch(dir, {
 		usePolling: false,
 	});
 
 	watcher.on('ready', () => {
-		watcher.on('add', (path)=> {
+		watcher.on('add', (path) => {
 			fs.readFile(path, {encoding: 'utf-8'}, (err, data) => {
 				const info = formatJson(data)
-				sendTelegamMessage(info)
+				if(info) {
+					sendTelegamMessage(info)
+				}
 			})
 		})
 	})
