@@ -1,7 +1,7 @@
 const fs = require('fs')
 const filePath = process.env.LINKS_FILE
 
-module.exports = link => {
+module.exports = async link => {
 	fs.readFile(filePath, {encoding: "utf-8"}, (err, data) => {
 		const result = data.replace(link, '')
 
@@ -10,7 +10,7 @@ module.exports = link => {
 				return console.error(err)
 			}
 
-			console.info('Link was removed!')
+			console.info('Link was removed from file!')
 		})
 	})
 }

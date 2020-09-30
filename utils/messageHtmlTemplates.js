@@ -1,4 +1,4 @@
-module.exports = (info) => {
+const orderInfo = (info) => {
 	return `
 		<b>Order info</b>\n
 		<b>Posted:</b> ${info.postedDate}\n
@@ -9,4 +9,17 @@ module.exports = (info) => {
 		\n
 		<a href="${info.route}">🏁 Посмотреть маршрут</a>
 	`
+}
+
+
+const deleteConfirmation = () => {
+	return `
+		<b>Route was deleted:</b>\n
+	`
+}
+
+
+module.exports = {
+	orderInfo,
+	deleteConfirmation
 }

@@ -4,8 +4,7 @@
   "description": "prosta bot, fara description",
   "main": "bot.js",
   "scripts": {
-    "start": "nodemon index.js --ignore db.json",
-    "pusk": "concurrently \"node server.js\" \"node bot.js\""
+    "start": "nodemon index.js --ignore db.json"
   },
   "keywords": [
     "bot",
@@ -20,6 +19,7 @@
     "express": "^4.17.1",
     "lowdb": "^1.0.0",
     "nodemon": "^2.0.4",
+    "sha1": "^1.1.1",
     "shortid": "^2.2.15",
     "telegraf": "^3.38.0",
     "telegraf-inline-menu": "^5.1.0"
